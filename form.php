@@ -179,7 +179,7 @@
         }
         
         .credentials-warning::before {
-            content: "⚠️ ";
+            content: " ";
             font-size: 1.1em;
         }
         
