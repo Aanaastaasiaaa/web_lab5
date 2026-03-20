@@ -387,8 +387,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📝 Анкета программиста</h1>
-            <p><?= isset($_SESSION['user_id']) ? 'Редактирование анкеты' : 'Заполните форму для участия в сообществе' ?></p>
+            <h1> Анкета </h1>
+            <p><?= isset($_SESSION['user_id']) ? 'Редактирование анкеты' : 'Заполните форму ' ?></p>
             
             <div class="auth-section">
                 <?php if (!isset($_SESSION['user_id'])): ?>
@@ -427,7 +427,7 @@
             <!-- ИСПРАВЛЕННЫЙ БЛОК: логин и пароль при первой отправке -->
             <?php if (isset($_SESSION['new_credentials'])): ?>
                 <div class="credentials-message">
-                    <h3>🎉 Ваши данные для входа в личный кабинет</h3>
+                    <h3> Ваши данные для входа в личный кабинет</h3>
                     
                     <div class="credentials-box">
                         <div class="credential-item">
