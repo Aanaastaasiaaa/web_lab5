@@ -116,24 +116,71 @@
             background: #4b5563;
         }
         
+        /* ИСПРАВЛЕННЫЙ БЛОК ДЛЯ ЛОГИНА И ПАРОЛЯ */
         .credentials-message {
             background: #f0fdf4;
             color: #166534;
-            padding: 20px;
+            padding: 25px 20px;
             border-radius: 12px;
             margin-bottom: 25px;
             border: 2px solid #86efac;
             text-align: center;
-            font-size: 1.1em;
         }
         
-        .credentials-message strong {
-            font-size: 1.2em;
+        .credentials-message h3 {
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            color: #166534;
+        }
+        
+        .credentials-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .credential-item {
             background: white;
-            padding: 5px 10px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid #86efac;
+            min-width: 200px;
+        }
+        
+        .credential-item strong {
+            display: block;
+            color: #166534;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .credential-value {
+            font-size: 1.3em;
+            font-family: monospace;
+            background: #f0fdf4;
+            padding: 8px 12px;
             border-radius: 6px;
+            border: 1px dashed #86efac;
+            word-break: break-all;
+        }
+        
+        .credentials-warning {
+            font-size: 0.9em;
+            color: #166534;
+            background: #dcfce7;
+            padding: 10px;
+            border-radius: 8px;
             border: 1px solid #86efac;
-            margin: 0 5px;
+            margin-top: 10px;
+        }
+        
+        .credentials-warning::before {
+            content: "⚠️ ";
+            font-size: 1.1em;
         }
         
         .form-content {
@@ -332,13 +379,15 @@
             .header h1 { font-size: 1.8em; }
             .radio-group { flex-direction: column; }
             .auth-section { position: static; margin-top: 15px; }
+            .credentials-box { flex-direction: column; align-items: center; }
+            .credential-item { width: 100%; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1> Анкета </h1>
+            <h1>📝 Анкета программиста</h1>
             <p><?= isset($_SESSION['user_id']) ? 'Редактирование анкеты' : 'Заполните форму для участия в сообществе' ?></p>
             
             <div class="auth-section">
@@ -375,13 +424,26 @@
                 </div>
             <?php endif; ?>
             
-            <!-- Показываем логин и пароль при первой отправке -->
+            <!-- ИСПРАВЛЕННЫЙ БЛОК: логин и пароль при первой отправке -->
             <?php if (isset($_SESSION['new_credentials'])): ?>
                 <div class="credentials-message">
-                    <h3> Ваши данные для входа:</h3>
-                    <p><strong>Логин:</strong> <?= $_SESSION['new_credentials']['login'] ?></p>
-                    <p><strong>Пароль:</strong> <?= $_SESSION['new_credentials']['password'] ?></p>
-                    <p style="font-size: 0.9em; margin-top: 10px;">Сохраните их! Они показываются только один раз.</p>
+                    <h3>🎉 Ваши данные для входа в личный кабинет</h3>
+                    
+                    <div class="credentials-box">
+                        <div class="credential-item">
+                            <strong>Логин</strong>
+                            <div class="credential-value"><?= htmlspecialchars($_SESSION['new_credentials']['login']) ?></div>
+                        </div>
+                        
+                        <div class="credential-item">
+                            <strong>Пароль</strong>
+                            <div class="credential-value"><?= htmlspecialchars($_SESSION['new_credentials']['password']) ?></div>
+                        </div>
+                    </div>
+                    
+                    <div class="credentials-warning">
+                        Сохраните эти данные! Они показываются только один раз.
+                    </div>
                 </div>
                 <?php unset($_SESSION['new_credentials']); ?>
             <?php endif; ?>
